@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center mt-3 mb-5">
+    <div class="col-md-7 col-lg-6">
+        <div class="text-center mb-4">
+            <h2 class="fw-bold text-warning mb-3">💰 線上添油香</h2>
+            <p class="text-muted fs-5">您的一份誠心與支持，將幫助我們持續維護這個系統。</p>
+        </div>
+        
+        <div class="card shadow border-0 rounded-4">
+            <div class="card-body p-4 p-md-5 bg-white">
+                <form method="POST" action="{{ url_for('payment.process') }}">
+                    <div class="mb-4">
+                        <label class="form-label fw-bold text-dark fs-5">捐獻金額 (NTD)</label>
+                        <div class="input-group input-group-lg shadow-sm">
+                            <span class="input-group-text bg-warning text-dark fw-bold border-0">$</span>
+                            <input type="number" class="form-control border-light bg-light" name="amount" min="10" placeholder="例如：100" value="100" required>
+                        </div>
+                        <div class="form-text text-muted mt-2">目前僅供內部模擬測試用，不會產生實際扣款。</div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="message" class="form-label fw-bold text-dark fs-5">祈福心語 (選填)</label>
+                        <textarea class="form-control bg-light border-light shadow-sm" name="message" id="message" rows="4" placeholder="寫下您的心願或是給神明/開發者的還願語..."></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-warning text-dark btn-lg w-100 py-3 mt-3 fw-bold rounded-pill shadow hover-lift">
+                        🙏 誠心奉獻 (模擬付款)
+                    </button>
+                </form>
+            </div>
+            
+            <div class="card-footer bg-light text-center py-3 border-0 rounded-bottom-4">
+                <small class="text-secondary">使用高規格 SSL 端到端加密技術 (模擬)</small>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.hover-lift {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.hover-lift:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+}
+</style>
+{% endblock %}

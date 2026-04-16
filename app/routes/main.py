@@ -1,4 +1,7 @@
-from flask import Blueprint, render_template, redirect, url_for, session, request
+from flask import Blueprint, render_template, session, redirect, url_for, flash
+from app.models.user import User
+from app.models.fortune_record import FortuneRecord
+from app.models.donation import Donation
 
 main_bp = Blueprint('main', __name__)
 
@@ -9,7 +12,7 @@ def index():
     顯示首頁，包含服務介紹與開始抽籤的入口。
     渲染：index.html
     """
-    pass
+    return render_template('index.html')
 
 @main_bp.route('/profile')
 def profile():
@@ -19,4 +22,13 @@ def profile():
     若未登入則重導向至登入頁面(401)。
     渲染：user/profile.html
     """
-    pass
+    user_id = session.get('user_id')
+    if not user_id:
+        flash("請先登入以查看個人紀錄", 'warning')
+        return redirect(url_for('auth.login'))
+    
+    user = User.get_by_id(user_id)
+    fortune_records = FortuneRecord.get_by_user_id(user_id)
+    donations = Donation.get_by_user_id(user_id)
+    
+    return render_template('user/profile.html', user=user, fortune_records=fortune_records, donations=donations)

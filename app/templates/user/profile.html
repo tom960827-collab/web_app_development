@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="d-flex align-items-center mb-4">
+    <div class="bg-danger text-white rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 50px; height: 50px; font-size: 1.5rem;">
+        {{ user.username[0] | upper }}
+    </div>
+    <h2 class="mb-0 fw-bold">{{ user.username }} 的個人記錄</h2>
+</div>
+
+<div class="row">
+    <!-- 抽籤紀錄 -->
+    <div class="col-md-8">
+        <div class="card shadow-sm mb-4 border-0 rounded-4">
+            <div class="card-header bg-white py-3">
+                <h5 class="mb-0 fw-bold text-danger">📜 我的求籤紀錄</h5>
+            </div>
+            <div class="card-body p-0">
+                {% if fortune_records %}
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th class="ps-4">求籤日期</th>
+                                <th>籤詩標題</th>
+                                <th>類別</th>
+                                <th class="pe-4 text-end">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for record in fortune_records %}
+                            <tr>
+                                <td class="ps-4 text-secondary">{{ record.created_at[:16] }}</td>
+                                <td class="fw-bold">{{ record.title }}</td>
+                                <td><span class="badge bg-danger bg-opacity-10 text-danger">{{ record.category }}</span></td>
+                                <td class="pe-4 text-end">
+                                    <a href="{{ url_for('fortune.result', id=record.fortune_id) }}" class="btn btn-sm btn-outline-danger">查看解籤</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                <div class="p-5 text-center text-muted">
+                    <p class="mb-3 fs-5">您尚未在系統中留下記錄</p>
+                    <a href="{{ url_for('fortune.draw') }}" class="btn btn-danger px-4 rounded-pill">前往求籤</a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    
+    <!-- 捐款記錄 -->
+    <div class="col-md-4">
+        <div class="card shadow-sm border-0 rounded-4">
+            <div class="card-header bg-white py-3">
+                <h5 class="mb-0 fw-bold text-warning">💰 添香油錢明細</h5>
+            </div>
+            <div class="card-body p-0">
+                {% if donations %}
+                <ul class="list-group list-group-flush">
+                    {% for d in donations %}
+                    <li class="list-group-item p-3">
+                        <div class="d-flex justify-content-between align-items-center mb-1">
+                            <strong class="fs-5">NT$ {{ d.amount }}</strong>
+                            {% if d.status == 'success' %}
+                                <span class="badge bg-success rounded-pill px-2">交易成功</span>
+                            {% else %}
+                                <span class="badge bg-warning text-dark rounded-pill px-2">{{ d.status }}</span>
+                            {% endif %}
+                        </div>
+                        <small class="text-secondary d-block">{{ d.created_at[:16] }}</small>
+                        {% if d.message %}
+                            <div class="mt-2 text-muted small bg-light p-2 rounded">
+                                " {{ d.message }} "
+                            </div>
+                        {% endif %}
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% else %}
+                <div class="p-4 text-center text-muted">
+                    <p class="mb-0">尚無捐獻記錄</p>
+                </div>
+                {% endif %}
+            </div>
+            <div class="card-footer bg-white border-0 text-center py-3">
+                <a href="{{ url_for('payment.donate') }}" class="btn btn-outline-warning text-dark border-2 w-100 fw-bold rounded-pill">我要添油香</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

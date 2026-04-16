@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center mt-5">
+    <div class="col-md-6 col-lg-5">
+        <div class="card shadow-sm border-0 rounded-4">
+            <div class="card-body p-4 p-md-5">
+                <h3 class="text-center mb-4 fw-bold">⛩️ 登入算命系統</h3>
+                <form method="POST" action="{{ url_for('auth.login') }}">
+                    <div class="mb-4">
+                        <label for="username" class="form-label text-secondary">帳號名稱</label>
+                        <input type="text" class="form-control form-control-lg bg-light" id="username" name="username" placeholder="輸入您的帳號名稱" required>
+                    </div>
+                    <div class="mb-4">
+                        <label for="password" class="form-label text-secondary">密碼</label>
+                        <input type="password" class="form-control form-control-lg bg-light" id="password" name="password" placeholder="輸入您的密碼" required>
+                    </div>
+                    <button type="submit" class="btn btn-danger btn-lg w-100 py-3 shadow-sm rounded-pill mt-2">登入</button>
+                </form>
+                <div class="text-center mt-4">
+                    <span class="text-muted">還沒有帳號嗎？</span> <a href="{{ url_for('auth.register') }}" class="text-danger fw-bold text-decoration-none">註冊新帳號</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

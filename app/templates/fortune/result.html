@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center mt-4 mb-5">
+    <div class="col-md-8 col-lg-6">
+        <div class="card shadow-lg border-0 rounded-4 text-center">
+            <div class="card-header bg-danger text-white py-3 border-0">
+                <h5 class="mb-0 fw-bold tracking-wide">{{ fortune.category }}</h5>
+            </div>
+            
+            <div class="card-body p-4 p-md-5">
+                <h1 class="display-4 text-danger fw-bold mb-5" style="font-family: 'Noto Serif TC', serif;">{{ fortune.title }}</h1>
+                
+                <div class="poem-container border-start border-end border-danger p-4 bg-light mb-5 position-relative" style="border-width: 4px !important;">
+                    <p class="fs-4 fst-italic mb-0 text-dark" style="white-space: pre-line; line-height: 2;">
+{{ fortune.content }}
+                    </p>
+                </div>
+                
+                {% if fortune.interpretation %}
+                <div class="text-start bg-white p-4 border rounded-3 shadow-sm">
+                    <h5 class="fw-bold text-danger mb-3 border-bottom pb-2">【 聖意 / 解籤 】</h5>
+                    <p class="text-secondary fs-5" style="white-space: pre-line; line-height: 1.8;">
+{{ fortune.interpretation }}
+                    </p>
+                </div>
+                {% endif %}
+            </div>
+            
+            <div class="card-footer bg-light py-4 border-0 text-center rounded-bottom-4">
+                <div class="d-flex justify-content-center gap-3 flex-wrap">
+                    <a href="{{ url_for('fortune.draw') }}" class="btn btn-outline-secondary px-4 rounded-pill">再次求籤</a>
+                    <button class="btn btn-outline-primary px-4 rounded-pill" onclick="alert('分享功能即將推出！')">分享好運</button>
+                    <a href="{{ url_for('payment.donate') }}" class="btn btn-warning fw-bold text-dark px-4 rounded-pill shadow-sm">添油香還願</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

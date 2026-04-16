@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="text-center py-5">
+    <h2 class="display-5 fw-bold text-danger">🙏 誠心祈求指引</h2>
+    <p class="text-secondary fs-5 mt-3 mb-5" style="max-width: 600px; margin: 0 auto;">在心中默念您的姓名、出生年月日與所求之事（請示事業、姻緣等），誠心沉靜後再按下求籤按鈕。</p>
+
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-5">
+            <div class="card shadow-lg border-0 rounded-4 overflow-hidden">
+                <div class="bg-danger text-white py-3">
+                    <h5 class="mb-0">線上抽籤系統</h5>
+                </div>
+                <div class="card-body p-4 p-md-5 bg-white">
+                    <form method="POST" action="{{ url_for('fortune.draw') }}">
+                        <div class="mb-5 text-start">
+                            <label for="category" class="form-label fw-bold text-dark fs-5 mb-3">請選擇您要祈求的神明或占卜方式</label>
+                            <select name="category" id="category" class="form-select form-select-lg bg-light border-0 shadow-sm cursor-pointer">
+                                <option value="觀音靈籤">🪷 觀音靈籤</option>
+                                <option value="媽祖聖籤" disabled>🌊 媽祖聖籤 (系統建置中)</option>
+                                <option value="塔羅牌" disabled>🃏 塔羅牌 (即將推出)</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-danger btn-lg w-100 py-3 fs-4 rounded-pill shadow">
+                            🎲 搖動籤筒抽籤
+                        </button>
+                    </form>
+                </div>
+            </div>
+            <div class="mt-4 text-muted small">
+                <!-- 裝飾用文字 -->
+                <p>※ 一事不二問，請抱持誠心操作</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
